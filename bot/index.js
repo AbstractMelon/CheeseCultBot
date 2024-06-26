@@ -44,18 +44,18 @@ export async function main(){
 
 
     // Command interaction handler
-    client.on("interactionCreate", async (i) => {
+    client.on("interactionCreate", async (interaction) => {
         try {
-            if (config.guilds && !config.guilds.includes(i.guildId)) {
+            if (config.guilds && !config.guilds.includes(interaction.guildId)) {
                 return;
             }
-            if (i.isCommand() !== true) return;
+            if (interaction.isCommand() !== true) return;
             // await db.userExists(i.member.id)
-            await commands[i.commandName].execute(i, client, db);
+            await commands[interaction.commandName].execute({interaction, client, /*db*/});
 
         } catch (err) {
             console.warn(err);
-            i.reply("Something went wrong");
+            interaction.reply("Something went wrong");
         }
     });
 
