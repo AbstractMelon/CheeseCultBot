@@ -14,7 +14,9 @@ export default  {
          */
 	async execute(interaction, client) {
         let cheeseImage = undefined
-        while(cheeseImage==undefined || pastImages.includes(cheeseImage)){
+        let maxCheck = 0;
+        while(cheeseImage==undefined || pastImages.includes(cheeseImage) || maxCheck>=10){
+            maxCheck+=1;
             cheeseImage = (await(await fetch("https://cheese-thing.vercel.app/api")).json()).image
         }
         pastImages.push(cheeseImage)
