@@ -51,7 +51,7 @@ export async function main(){
             }
             if (interaction.isCommand() !== true) return;
             // await db.userExists(i.member.id)
-            await commands[interaction.commandName].execute({interaction, client, /*db*/});
+            await commands[interaction.commandName].execute(interaction, client, /*db*/);
 
         } catch (err) {
             console.warn(err);
@@ -59,6 +59,16 @@ export async function main(){
         }
     });
 
+
+    // Events
+    var jsRegex = /^.*\.js$/;
+    for(let file of fs.readdirSync("./bot/events")){
+        if (!jsRegex.test(file)) return;
+        let rq = await import("file://"+path.resolve("./bot/events/" + file));
+        rq = rq["default"]
+        
+        rq(client)
+    }
 
     // Commands
     var commands = {};

@@ -11,7 +11,7 @@ export default  {
          * @param {CommandInteraction} interaction 
          * @param {Client} client
          */
-	async execute({interaction, client}) {
+	async execute(interaction, client) {
         await interaction.reply({embeds:[lazyEmbed({
             "title":"Pong! :ping_pong:",
             "message":`Server has been up for ${process.uptime()} seconds.`})],
